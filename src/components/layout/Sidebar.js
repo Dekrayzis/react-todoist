@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaChevronDown,
   FaInbox,
@@ -10,6 +10,9 @@ import {
 import "./sidebar.scss";
 
 const Sidebar = () => {
+  const [active, setActive] = useState("inbox");
+  const [showProjects, setShowProjects] = useState(true);
+
   return (
     <div className="sidebar" data-testid="sidebar">
       <ul className="sidebar__generic">
@@ -62,6 +65,25 @@ const Sidebar = () => {
           </div>
         </li>
       </ul>
+      <div
+        className="sidebar__middle"
+        aria-label="Show/hide projects"
+        onClick={() => setShowProjects(!showProjects)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") setShowProjects(!showProjects);
+        }}
+        role="button"
+        tabIndex={0}
+      >
+        <span>
+          <FaChevronDown
+            className={!showProjects ? "hidden-projects" : undefined}
+          />
+        </span>
+        <h2>Projects</h2>
+      </div>
+
+      <ul className="sidebar__projects"></ul>
     </div>
   );
 };
