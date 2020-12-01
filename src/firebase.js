@@ -1,7 +1,7 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgwPDp4oVkZov0jlh2NgPxcpnwb3GO5Io",
+  apiKey: process.env.FIREBASE_API,
   authDomain: "react-todoist-2c311.firebaseapp.com",
   databaseURL: "https://react-todoist-2c311.firebaseio.com",
   projectId: "react-todoist-2c311",
