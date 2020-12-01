@@ -1,13 +1,18 @@
 import React from "react";
 import { Content, Header, Footer } from "./components";
+import { ProjectsProvider, SelectedProjectProvider } from "./context";
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <Content />
-      <Footer />
-    </div>
+    <SelectedProjectProvider>
+      <ProjectsProvider>
+        <div className="app">
+          <Header />
+          <Content />
+          <Footer />
+        </div>
+      </ProjectsProvider>
+    </SelectedProjectProvider>
   );
 }
 

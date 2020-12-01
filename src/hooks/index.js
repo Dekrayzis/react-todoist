@@ -1,20 +1,17 @@
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
 import moment from "moment";
-import { firebase } from "../firebase";
+import db from "../firebase";
 import { collatedTasksExist } from "../helpers";
 
-const currentUser = "asdkjKJBKJBSD";
+import { userId } from "../constants"; // Should implement getting userId from sign in feature.
 
 export const useTasks = (selectedProject) => {
   const [tasks, setTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
 
   useEffect(() => {
-    let unsubscribe = firebase
-      .firestore()
-      .collection("tasks")
-      .where("userId", "==", currentUser);
+    let unsubscribe = db.collection("tasks").where("userId", "==", userId);
 
     unsubscribe =
       selectedProject && !collatedTasksExist(selectedProject)
@@ -57,10 +54,8 @@ export const useProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("projects")
-      .where("userId", "==", currentUser)
+    db.collection("projects")
+      .where("userId", "==", userId)
       .orderBy("projectId")
       .get()
       .then((snapshot) => {
