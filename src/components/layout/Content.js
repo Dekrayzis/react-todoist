@@ -1,14 +1,16 @@
 import React from "react";
 import Sidebar from "./Sidebar";
+import Tasks from "../containers/Tasks";
 
 //-- Stylesheet
 import "./content.scss";
 
 const Content = () => {
   return (
-    <div className="content">
+    <section className="content">
+      <Tasks />
       <Sidebar />
-    </div>
+    </section>
   );
 };
 

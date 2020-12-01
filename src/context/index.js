@@ -1,4 +1,20 @@
-import { collatedTasks } from "../constants";
+import {
+  ProjectsContext,
+  ProjectsProvider,
+  useProjectsValue,
+} from "./projects-context";
 
-export const collatedTasksExist = (selectedProject) =>
-  collatedTasks.find((task) => task.key === selectedProject);
+import {
+  SelectedProjectContext,
+  SelectedProjectProvider,
+  useSelectedProjectValue,
+} from "./selected-project-context";
+
+export {
+  ProjectsContext,
+  ProjectsProvider,
+  useProjectsValue,
+  SelectedProjectContext,
+  SelectedProjectProvider,
+  useSelectedProjectValue,
+};

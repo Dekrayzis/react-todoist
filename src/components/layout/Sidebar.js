@@ -6,10 +6,16 @@ import {
   FaRegCalendar,
 } from "react-icons/fa";
 
+import { useSelectedProjectValue } from "../../context";
+
+import { AddProject } from "../containers/AddProject";
+import { Projects } from "../containers/Projects";
+
 //-- Stylesheet
 import "./sidebar.scss";
 
-const Sidebar = () => {
+export const Sidebar = () => {
+  const { setSelectedProject } = useSelectedProjectValue();
   const [active, setActive] = useState("inbox");
   const [showProjects, setShowProjects] = useState(true);
 
@@ -18,13 +24,23 @@ const Sidebar = () => {
       <ul className="sidebar__generic">
         <li
           data-testid="inbox"
-          className={active === "inbox" ? "active" : null}
+          className={active === "inbox" ? "active" : undefined}
         >
           <div
             data-testid="inbox-action"
             aria-label="Show inbox tasks"
             tabIndex={0}
             role="button"
+            onClick={() => {
+              setActive("inbox");
+              setSelectedProject("INBOX");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setActive("inbox");
+                setSelectedProject("INBOX");
+              }
+            }}
           >
             <span>
               <FaInbox />
@@ -34,13 +50,23 @@ const Sidebar = () => {
         </li>
         <li
           data-testid="today"
-          className={active === "today" ? "active" : null}
+          className={active === "today" ? "active" : undefined}
         >
           <div
             data-testid="today-action"
             aria-label="Show today's tasks"
             tabIndex={0}
             role="button"
+            onClick={() => {
+              setActive("today");
+              setSelectedProject("TODAY");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setActive("today");
+                setSelectedProject("TODAY");
+              }
+            }}
           >
             <span>
               <FaRegCalendar />
@@ -57,6 +83,16 @@ const Sidebar = () => {
             aria-label="Show tasks for the next 7 days"
             tabIndex={0}
             role="button"
+            onClick={() => {
+              setActive("next_7");
+              setSelectedProject("NEXT_7");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setActive("next_7");
+                setSelectedProject("NEXT_7");
+              }
+            }}
           >
             <span>
               <FaRegCalendarAlt />
@@ -83,7 +119,9 @@ const Sidebar = () => {
         <h2>Projects</h2>
       </div>
 
-      <ul className="sidebar__projects"></ul>
+      <ul className="sidebar__projects">{showProjects && <Projects />}</ul>
+
+      {showProjects && <AddProject />}
     </div>
   );
 };
